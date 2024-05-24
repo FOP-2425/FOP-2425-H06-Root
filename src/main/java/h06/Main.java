@@ -27,6 +27,6 @@ public class Main {
 
         // H3
         FractalVisualizer fracVis = new FractalVisualizer(new KochFractal());
-        //fracVis.setVisible(true);
+        fracVis.setVisible(true);
     }
 }

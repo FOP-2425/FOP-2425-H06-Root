@@ -4,7 +4,6 @@ import org.tudalgo.algoutils.student.annotation.DoNotTouch;
 import org.tudalgo.algoutils.student.annotation.StudentImplementationRequired;
 
 // man darf als Student davon ausgehen, dass nur für n>=0 gelöst werden muss
-// Ich würde zuerst iterativ programmieren lassen da das gewohnt ist und anschließend rekursiv
 public class Fibonacci {
 
     @DoNotTouch
