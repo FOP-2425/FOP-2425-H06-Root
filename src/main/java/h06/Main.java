@@ -1,9 +1,9 @@
 package h06;
 
 import h06.problems.BubbleSort;
+import h06.problems.DragonCurve;
 import h06.problems.InsertionSort;
-import h06.problems.KochFractal;
-import h06.ui.FractalVisualizer;
+import h06.ui.DragonCurveVisualizer;
 import org.tudalgo.algoutils.student.annotation.DoNotTouch;
 
 import java.util.Arrays;
@@ -96,7 +96,10 @@ public class Main {
 
     @DoNotTouch
     private static void visualizeKochFractal() {
-        FractalVisualizer fracVis = new FractalVisualizer(new KochFractal());
+        String[] dragonCurve = DragonCurve.dragonCurve(3);
+        System.out.print(Arrays.toString(dragonCurve));
+
+        DragonCurveVisualizer fracVis = new DragonCurveVisualizer(dragonCurve);
         fracVis.setVisible(true);
     }
 }

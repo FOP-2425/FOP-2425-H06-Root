@@ -14,13 +14,13 @@
 
 ;;; keyword append war nicht in der VL dran, deswegen definieren wir es selbst (mit anderem Namen)
 ;; Das hier iterativ in Java implementieren lassen!!!! Zwingend iterativ!!!
-(define (append-lists lst1 lst2)
+(define (concatenate lst1 lst2)
   (if (empty? lst1) lst2
-      (cons (first lst1) (append-lists (rest lst1) lst2))))
+      (cons (first lst1) (concatenate (rest lst1) lst2))))
 
 
 ;; define contract s.t. idx has to be a valid index
-;; Auch iterativ implementieren lassen!!!
+;; Geht in Java mit einer Zeile. Aber wir sagen da, dass sie neues Array zurückgeben sollen wegen reference
 (define (replace-at-idx lst idx elem)
   (cond
     [(= idx 0) (cons elem (rest lst))]
@@ -31,7 +31,7 @@
 (define (dragon order)
   (if (= order 1)
       (list 'R)
-      (append-lists (append-lists (dragon (- order 1)) (list 'R)) (replace-at-idx (dragon (- order 1)) (- (power 2 (- order 2)) 1) 'L))))
+      (concatenate (concatenate (dragon (- order 1)) (list 'R)) (replace-at-idx (dragon (- order 1)) (- (power 2 (- order 2)) 1) 'L))))
 
 
 
