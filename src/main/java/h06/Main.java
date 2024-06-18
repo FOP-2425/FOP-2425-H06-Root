@@ -1,9 +1,7 @@
 package h06;
 
-import h06.problems.BubbleSort;
-import h06.problems.DragonCurve;
-import h06.problems.InsertionSort;
-import h06.ui.DragonCurveVisualizer;
+import h06.problems.*;
+import h06.ui.FractalVisualizer;
 import org.tudalgo.algoutils.student.annotation.DoNotTouch;
 
 import java.util.Arrays;
@@ -28,7 +26,7 @@ public class Main {
         bubbleSortTests();
         insertionSortTests();
         // H3
-        visualizeDragonCurve();
+        visualizeFractals();
     }
 
     @DoNotTouch
@@ -95,11 +93,14 @@ public class Main {
     }
 
     @DoNotTouch
-    private static void visualizeDragonCurve() {
-        String[] dragonCurve = DragonCurve.dragonCurve(14);
-        //System.out.print(Arrays.toString(dragonCurve));
+    private static void visualizeFractals() {
+        DrawInstruction[] dragonCurveInstructions = Fractals.dragonCurve(14);
+        DrawInstruction[] kochSnowflakeInstructions = Fractals.kochSnowflake(5);
 
-        DragonCurveVisualizer fracVis = new DragonCurveVisualizer(dragonCurve);
+        FractalVisualizer fracVis = new FractalVisualizer(dragonCurveInstructions, 90);
         fracVis.setVisible(true);
+
+        FractalVisualizer fracVis2 = new FractalVisualizer(kochSnowflakeInstructions, 60);
+        fracVis2.setVisible(true);
     }
 }

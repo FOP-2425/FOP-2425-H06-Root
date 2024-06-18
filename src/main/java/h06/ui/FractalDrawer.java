@@ -1,20 +1,25 @@
 package h06.ui;
 
+import h06.problems.DrawInstruction;
 import org.tudalgo.algoutils.student.annotation.DoNotTouch;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.geom.Line2D;
 import java.awt.geom.Rectangle2D;
+import java.util.ArrayList;
+import java.util.List;
 
 @DoNotTouch
-public class DragonCurveDrawer extends JPanel {
-    String[] drawInstructions;
-    Line2D[] lines;
+public class FractalDrawer extends JPanel {
+    private final DrawInstruction[] drawInstructions;
+    private final List<Line2D> lines;
+    private final double angle;
 
-    public DragonCurveDrawer(String[] drawInstructions) {
+    public FractalDrawer(DrawInstruction[] drawInstructions, int angle) {
         this.drawInstructions = drawInstructions;
-        this.lines = new Line2D[drawInstructions.length + 1];
+        this.lines = new ArrayList<>();
+        this.angle = Math.toRadians(angle);
     }
 
     @Override
@@ -28,37 +33,32 @@ public class DragonCurveDrawer extends JPanel {
         double x = 0;
         double y = 0;
         // The first line is drawn upwards
-        double angle = 3*Math.PI/2;
+        double currentAngle = 0;
 
         double minX = x;
         double minY = y;
         double maxX = x;
-        double maxY = y+1;
-
-        // Draw the first line upwards
-        lines[0] = new Line2D.Double(x, y, x, y+1);
+        double maxY = y;
 
         // Store the dragon curve lines based on instructions
-        for (int i = 0; i < drawInstructions.length; i++) {
-            String instruction = drawInstructions[i];
+        for (DrawInstruction instruction : drawInstructions) {
+            if (instruction.equals(DrawInstruction.DRAW_LINE)) {
+                double x2 = x + Math.cos(currentAngle);
+                double y2 = y + Math.sin(currentAngle);
+                lines.add(new Line2D.Double(x, y, x2, y2));
+                x = x2;
+                y = y2;
 
-            if (instruction.equals("L")) {
-                angle -= Math.PI / 2; // Turn left 90 degrees
-            } else if (instruction.equals("R")) {
-                angle += Math.PI / 2; // Turn right 90 degrees
+                // Update Bounding Box values
+                minX = Math.min(minX, x);
+                minY = Math.min(minY, y);
+                maxX = Math.max(maxX, x);
+                maxY = Math.max(maxY, y);
+            } else if (instruction.equals(DrawInstruction.TURN_LEFT)) {
+                currentAngle -= angle; // Turn left
+            } else if (instruction.equals(DrawInstruction.TURN_RIGHT)) {
+                currentAngle += angle; // Turn right
             }
-
-            double x2 = x + Math.cos(angle);
-            double y2 = y + Math.sin(angle);
-            lines[i+1] = new Line2D.Double(x, y, x2, y2);
-            x = x2;
-            y = y2;
-
-            // Update Bounding Box values
-            minX = Math.min(minX, x);
-            minY = Math.min(minY, y);
-            maxX = Math.max(maxX, x);
-            maxY = Math.max(maxY, y);
         }
 
         // Define Bounding Box
