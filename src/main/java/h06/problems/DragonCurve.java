@@ -1,23 +1,33 @@
 package h06.problems;
 
+import org.tudalgo.algoutils.student.annotation.DoNotTouch;
+import org.tudalgo.algoutils.student.annotation.StudentImplementationRequired;
+
 public class DragonCurve {
 
-    public DragonCurve() {
+    /*
+     *
+     */
+    @DoNotTouch
+    public DragonCurve() {}
 
-    }
-
-    public static int power(int a, int b) {
+    /*
+     *
+     */
+    @StudentImplementationRequired
+    private static int pow(int a, int b) {
         if(b == 0) {
             return 1;
-        }
-        else if (b == 1) {
-            return a;
         } else {
-            return a * power(a, b-1);
+            return a * pow(a, b-1);
         }
     }
 
-    public static String[] concatenate(String[] a, String[] b) {
+    /*
+     *
+     */
+    @StudentImplementationRequired
+    private static String[] concatenate(String[] a, String[] b) {
         String[] c = new String[a.length + b.length];
 //        System.arraycopy(a, 0, c, 0, a.length);
 //        System.arraycopy(b, 0, c, a.length, b.length);
@@ -36,7 +46,8 @@ public class DragonCurve {
     /*
      * Return a new array!
      */
-    public static String[] replaceAtIndex(String[] arr, int idx, String elem) {
+    @StudentImplementationRequired
+    private static String[] replaceAtIndex(String[] arr, int idx, String elem) {
         String[] newArr = new String[arr.length];
 
         for (int i = 0; i < newArr.length; i++) {
@@ -50,9 +61,13 @@ public class DragonCurve {
         return newArr;
     }
 
+    /*
+     *
+     */
+    @StudentImplementationRequired
     public static String[] dragonCurve(int n) {
         if(n <= 0) {
-            return new String[0];
+            return new String[]{};
         }
         if (n == 1) {
             return new String[]{"R"};
@@ -60,7 +75,7 @@ public class DragonCurve {
         else {
             String[] lastOrder = dragonCurve(n - 1);
             String[] firstHalf = concatenate(lastOrder, new String[]{"R"});
-            String[] secondHalf = replaceAtIndex(lastOrder, power(2, n-2)-1, "L");
+            String[] secondHalf = replaceAtIndex(lastOrder, pow(2, n-2)-1, "L");
             return concatenate(firstHalf, secondHalf);
         }
     }

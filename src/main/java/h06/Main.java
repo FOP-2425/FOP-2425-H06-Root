@@ -28,7 +28,7 @@ public class Main {
         bubbleSortTests();
         insertionSortTests();
         // H3
-        visualizeKochFractal();
+        visualizeDragonCurve();
     }
 
     @DoNotTouch
@@ -95,9 +95,9 @@ public class Main {
     }
 
     @DoNotTouch
-    private static void visualizeKochFractal() {
-        String[] dragonCurve = DragonCurve.dragonCurve(3);
-        System.out.print(Arrays.toString(dragonCurve));
+    private static void visualizeDragonCurve() {
+        String[] dragonCurve = DragonCurve.dragonCurve(14);
+        //System.out.print(Arrays.toString(dragonCurve));
 
         DragonCurveVisualizer fracVis = new DragonCurveVisualizer(dragonCurve);
         fracVis.setVisible(true);
