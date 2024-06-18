@@ -1,6 +1,7 @@
 package h06;
 
 import h06.problems.*;
+import h06.ui.DrawInstruction;
 import h06.ui.FractalVisualizer;
 import org.tudalgo.algoutils.student.annotation.DoNotTouch;
 

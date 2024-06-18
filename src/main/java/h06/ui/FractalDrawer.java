@@ -1,6 +1,5 @@
 package h06.ui;
 
-import h06.problems.DrawInstruction;
 import org.tudalgo.algoutils.student.annotation.DoNotTouch;
 
 import javax.swing.*;
@@ -10,18 +9,37 @@ import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 import java.util.List;
 
+/*
+ * A class for drawing fractals, given their drawing instructions.
+ *
+ * @author Manuel Peters
+ */
 @DoNotTouch
 public class FractalDrawer extends JPanel {
     private final DrawInstruction[] drawInstructions;
     private final List<Line2D> lines;
+
+    /*
+     * The angle in radians for a turn.
+     * This angle determines how far a left or right turn will go.
+     */
     private final double angle;
 
+    /*
+     * Constructor for this class.
+     *
+     * @param drawInstructions the instructions to draw the fractal
+     * @param angle the angle in degrees for a turn
+     */
     public FractalDrawer(DrawInstruction[] drawInstructions, int angle) {
         this.drawInstructions = drawInstructions;
         this.lines = new ArrayList<>();
         this.angle = Math.toRadians(angle);
     }
 
+    /*
+     * Draws on the canvas by following the drawing instructions
+     */
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
@@ -32,7 +50,7 @@ public class FractalDrawer extends JPanel {
         // Set the initial position and direction
         double x = 0;
         double y = 0;
-        // The first line is drawn upwards
+        // The first line is drawn to the right
         double currentAngle = 0;
 
         double minX = x;
@@ -40,7 +58,7 @@ public class FractalDrawer extends JPanel {
         double maxX = x;
         double maxY = y;
 
-        // Store the dragon curve lines based on instructions
+        // Store the lines based on instructions
         for (DrawInstruction instruction : drawInstructions) {
             if (instruction.equals(DrawInstruction.DRAW_LINE)) {
                 double x2 = x + Math.cos(currentAngle);
@@ -55,9 +73,9 @@ public class FractalDrawer extends JPanel {
                 maxX = Math.max(maxX, x);
                 maxY = Math.max(maxY, y);
             } else if (instruction.equals(DrawInstruction.TURN_LEFT)) {
-                currentAngle -= angle; // Turn left
+                currentAngle -= angle;
             } else if (instruction.equals(DrawInstruction.TURN_RIGHT)) {
-                currentAngle += angle; // Turn right
+                currentAngle += angle;
             }
         }
 

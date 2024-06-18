@@ -1,4 +1,4 @@
-package h06.problems;
+package h06.ui;
 
 import org.tudalgo.algoutils.student.annotation.DoNotTouch;
 

@@ -9,6 +9,7 @@
 ;; Achtung! cond wird in der Vorlesung 04b, Folie 60 eingeführt! (Oder zählen nicht die Seitenzahlen des systematischen Durchlaufs sondern der kurzen Folien??)
 
 ;; Type: natural -> natural
+;; Returns: The nth number in the fibonacci sequence
 (define (fib-rec-classic n)
   (if (<= n 1) n (+ (fib-rec-classic (- n 1)) (fib-rec-classic (- n 2))))
 )
@@ -21,13 +22,12 @@
 ;;(define fib1 1)
 
 ;; Type: natural -> natural
+;; Returns: The nth number in the fibonacci sequence
 (define (fibonacci-recursive-different n)
   (local ((define (do-the-recursion a b n)
-           (cond
-             [(<= n 0) a] ;; Rekursionsanker
-             [else (do-the-recursion b (+ a b) (- n 1))])))
-  (do-the-recursion 0 1 n))
-)
+           (if (<= n 0) a
+             (do-the-recursion b (+ a b) (- n 1)))))
+  (do-the-recursion 0 1 n)))
 
 
 (check-expect (fibonacci-recursive-different 0) 0)

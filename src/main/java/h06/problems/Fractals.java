@@ -1,5 +1,6 @@
 package h06.problems;
 
+import h06.ui.DrawInstruction;
 import org.tudalgo.algoutils.student.annotation.DoNotTouch;
 import org.tudalgo.algoutils.student.annotation.StudentImplementationRequired;
 
