@@ -25,7 +25,7 @@ public class LinearSearch {
      * @param index  the index to start searching from
      * @return the index of the target in the array, or -1 if the target is not found
      */
-    @StudentCreationRequired
+    @StudentImplementationRequired
     public static int linearSearchRecursiveHelper(int[] arr, int target, int index) {
         if (index == arr.length) {
             return -1;
