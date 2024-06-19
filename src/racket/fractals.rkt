@@ -1,6 +1,6 @@
 ;; The first three lines of this file were inserted by DrRacket. They record metadata
 ;; about the language level of this file in a form that our tools can easily process.
-#reader(lib "htdp-advanced-reader.ss" "lang")((modname dragonCurve) (read-case-sensitive #t) (teachpacks ()) (htdp-settings #(#t constructor repeating-decimal #t #t none #f () #f)))
+#reader(lib "htdp-advanced-reader.ss" "lang")((modname fractals) (read-case-sensitive #t) (teachpacks ()) (htdp-settings #(#t constructor repeating-decimal #t #t none #f () #f)))
 ;;#lang racket
 
 ;; Alle 4 Fkt. implementieren lassen!
@@ -37,11 +37,11 @@
 
 ;; Type: natural -> (list of symbol)
 ;; Returns: A list containing the drawing instructions for a dragon curve of order n
-(define (dragon n)
+(define (dragon-curve n)
   (cond
     [(<= n 0) (list 'D)]
     [(= n 1) (list 'D 'R 'D)]
-    [else (concatenate (concatenate (dragon (- n 1)) (list 'R)) (replace-at-idx (dragon (- n 1)) (- (pow 2 (- n 1)) 1) 'L))]))
+    [else (concatenate (concatenate (dragon-curve (- n 1)) (list 'R)) (replace-at-idx (dragon-curve (- n 1)) (- (pow 2 (- n 1)) 1) 'L))]))
 
 
 
@@ -66,11 +66,11 @@
 
 
 ;;;;;;;; TESTS ;;;;;;;;;;;
-(check-expect (dragon 0) (list 'D))
-(check-expect (dragon 1) (list 'D 'R 'D))
-(check-expect (dragon 2) (list 'D 'R 'D 'R 'D 'L 'D))
-(check-expect (dragon 3) (list 'D 'R 'D 'R 'D 'L 'D 'R 'D 'R 'D 'L 'D 'L 'D))
-(check-expect (dragon 4) (list 'D 'R 'D 'R 'D 'L 'D 'R 'D 'R 'D 'L 'D 'L 'D 'R 'D 'R 'D 'R 'D 'L 'D 'L 'D 'R 'D 'L 'D 'L 'D))
+(check-expect (dragon-curve 0) (list 'D))
+(check-expect (dragon-curve 1) (list 'D 'R 'D))
+(check-expect (dragon-curve 2) (list 'D 'R 'D 'R 'D 'L 'D))
+(check-expect (dragon-curve 3) (list 'D 'R 'D 'R 'D 'L 'D 'R 'D 'R 'D 'L 'D 'L 'D))
+(check-expect (dragon-curve 4) (list 'D 'R 'D 'R 'D 'L 'D 'R 'D 'R 'D 'L 'D 'L 'D 'R 'D 'R 'D 'R 'D 'L 'D 'L 'D 'R 'D 'L 'D 'L 'D))
 
 (check-expect (koch-snowflake 0) (list 'D 'R 'R 'D 'R 'R 'D))
 (check-expect (koch-snowflake 1) (list 'D 'L 'D 'R 'R 'D 'L 'D 'R 'R 'D 'L 'D 'R 'R 'D 'L 'D 'R 'R 'D 'L 'D 'R 'R 'D 'L 'D))
@@ -83,6 +83,8 @@
 (check-expect (pow 2 2) 4)
 (check-expect (pow 2 3) 8)
 (check-expect (pow 0 5) 0)
+
+(cons '(1 2 3) '(4 5 6))
 
 
 ;; 0 ist Teil von natural
