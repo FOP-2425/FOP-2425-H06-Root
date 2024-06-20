@@ -1,0 +1,42 @@
+;; The first three lines of this file were inserted by DrRacket. They record metadata
+;; about the language level of this file in a form that our tools can easily process.
+#reader(lib "htdp-advanced-reader.ss" "lang")((modname fib) (read-case-sensitive #t) (teachpacks ()) (htdp-settings #(#t constructor repeating-decimal #t #t none #f () #f)))
+;; Aus der Vorlesung kennen Sie bereits diesen Weg zur Berechnung
+;; Bei Übersetzung in Java fordern, dass if mit ternärem Operator ersetzt wird!
+
+;; Unbedingt darauf hinweisen, dass hier die Folge mit fib(0) = 0 beginnt!
+
+;; Achtung! cond wird in der Vorlesung 04b, Folie 60 eingeführt! (Oder zählen nicht die Seitenzahlen des systematischen Durchlaufs sondern der kurzen Folien??)
+
+;; Type: natural -> natural
+;; Returns: The nth number in the fibonacci sequence
+(define (fib-rec-classic n)
+  (if (<= n 1) n (+ (fib-rec-classic (- n 1)) (fib-rec-classic (- n 2))))
+)
+
+
+;; Auf eine andere Art und Weise
+;; Hier werden Konstrukte aus der Vorlesung benutzt:
+;; local, cond, Definition von eigenen Konstanten
+;;(define fib0 0)
+;;(define fib1 1)
+
+;; Type: natural -> natural
+;; Returns: The nth number in the fibonacci sequence
+(define (fibonacci-recursive-different n)
+  (local ((define (do-the-recursion a b n)
+           (if (<= n 0) a
+             (do-the-recursion b (+ a b) (- n 1)))))
+  (do-the-recursion 0 1 n)))
+
+
+(check-expect (fibonacci-recursive-different 0) 0)
+(check-expect (fibonacci-recursive-different 1) 1)
+(check-expect (fibonacci-recursive-different 2) 1)
+(check-expect (fibonacci-recursive-different 3) 2)
+(check-expect (fibonacci-recursive-different 4) 3)
+(check-expect (fibonacci-recursive-different 5) 5)
+(check-expect (fibonacci-recursive-different 6) 8)
+(check-expect (fibonacci-recursive-different 7) 13)
+(check-expect (fibonacci-recursive-different 8) 21)
+(check-expect (fibonacci-recursive-different 9) 34)
