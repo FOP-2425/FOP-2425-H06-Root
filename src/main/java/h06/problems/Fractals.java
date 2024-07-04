@@ -4,20 +4,20 @@ import h06.ui.DrawInstruction;
 import org.tudalgo.algoutils.student.annotation.DoNotTouch;
 import org.tudalgo.algoutils.student.annotation.StudentImplementationRequired;
 
-/*
+/**
  * A class to generate draw instructions in order to draw a dragon curve.
  *
  * @author Manuel Peters
  */
 public class Fractals {
 
-    /*
+    /**
      * Default Constructor for this class.
      */
     @DoNotTouch
     public Fractals() {}
 
-    /*
+    /**
      * This method calculates a raised to the power of b using recursion.
      * a and b are expected to be non-negative integers.
      *
@@ -34,7 +34,7 @@ public class Fractals {
         }
     }
 
-    /*
+    /**
      * This method combines two arrays of DrawInstruction objects into a single array.
      * The elements of the first array are followed by the elements of the second array in the new array.
      *
@@ -57,7 +57,7 @@ public class Fractals {
         return newArr;
     }
 
-    /*
+    /**
      * This method creates a new array that is a copy of the input array arr, but with the element at the specified
      * index idx replaced by elem.
      *
@@ -81,7 +81,7 @@ public class Fractals {
         return newArr;
     }
 
-    /*
+    /**
      * Generates an array of DrawInstruction objects to draw a dragon curve of order n
      *
      * @param n The order of the dragon curve to generate
@@ -109,7 +109,7 @@ public class Fractals {
         }
     }
 
-    /*
+    /**
      * Generates an array of DrawInstruction objects to draw a koch snowflake of order n
      *
      * @param n The order of the koch snowflake to generate
