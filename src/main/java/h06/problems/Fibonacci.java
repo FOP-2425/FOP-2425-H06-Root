@@ -65,7 +65,7 @@ public class Fibonacci {
 
     @StudentImplementationRequired
     private static int doTheRecursion(int a, int b, int n) {
-        // Verbindliche Anforderung: Nur eine Zeile Code und Bedingungsoperator verwenden!
+        // Verbindliche Anforderung: Bedingungsoperator verwenden!
         return n <= 0 ? a : doTheRecursion(b, a+b, n-1);
     }
 }
