@@ -24,8 +24,6 @@ public class Main {
         fibonacciTests();
         // H2
         linearSearchTests();
-        bubbleSortTests();
-        insertionSortTests();
         // H3
         visualizeFractals();
     }
@@ -61,36 +59,6 @@ public class Main {
         System.out.printf("%nShould not find value %d%n", target);
         System.out.printf("Recursive: Index of %d in %s: %d%n", target, Arrays.toString(arr), linearSearchRecursive(arr, target));
         System.out.printf("Iterative: Index of %d in %s: %d%n", target, Arrays.toString(arr), linearSearchIterative(arr, target));
-    }
-
-    private static void bubbleSortTests() {
-        testHeader("Bubble Sort");
-        int[] arr = {5, 2, 4, 6, 1, 3};
-        System.out.printf("Recursive: %n");
-        System.out.printf("Before: %s%n", Arrays.toString(arr));
-        BubbleSort.bubbleSortRecursive(arr);
-        System.out.printf("After: %s%n", Arrays.toString(arr));
-
-        arr = new int[]{5, 2, 4, 6, 1, 3};
-        System.out.printf("%nIterative: %n");
-        System.out.printf("Before: %s%n", Arrays.toString(arr));
-        BubbleSort.bubbleSortIterative(arr);
-        System.out.printf("After: %s%n", Arrays.toString(arr));
-    }
-
-    private static void insertionSortTests() {
-        testHeader("Insertion Sort");
-        int[] arr = {5, 2, 4, 6, 1, 3};
-        System.out.printf("Recursive: %n");
-        System.out.printf("Before: %s%n", Arrays.toString(arr));
-        InsertionSort.insertionSortRecursive(arr);
-        System.out.printf("After: %s%n", Arrays.toString(arr));
-
-        arr = new int[]{5, 2, 4, 6, 1, 3};
-        System.out.printf("%nIterative: %n");
-        System.out.printf("Before: %s%n", Arrays.toString(arr));
-        InsertionSort.insertionSortIterative(arr);
-        System.out.printf("After: %s%n", Arrays.toString(arr));
     }
 
     @DoNotTouch

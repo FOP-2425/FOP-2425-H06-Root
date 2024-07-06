@@ -5,7 +5,7 @@ import org.tudalgo.algoutils.student.annotation.DoNotTouch;
 import javax.swing.*;
 import java.awt.*;
 
-/*
+/**
  * A class to visualize fractals, given their drawing instructions.
  *
  * @author Manuel Peters
@@ -13,7 +13,7 @@ import java.awt.*;
 @DoNotTouch
 public class FractalVisualizer extends JFrame {
 
-    /*
+    /**
      * Constructor for this class.
      *
      * @param drawInstructions the instructions to draw the fractal

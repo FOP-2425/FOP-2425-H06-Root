@@ -3,22 +3,20 @@ package h06.problems;
 import org.tudalgo.algoutils.student.annotation.DoNotTouch;
 import org.tudalgo.algoutils.student.annotation.StudentImplementationRequired;
 
-// man darf als Student davon ausgehen, dass nur für n>=0 gelöst werden muss ?
-
-/*
+/**
  * A class containing different implementations for computing the nth number in the Fibonacci sequence.
  *
  * @author Manuel Peters
  */
 public class Fibonacci {
 
-    /*
+    /**
      * Default Constructor for this class.
      */
     @DoNotTouch
     public Fibonacci() {}
 
-    /*
+    /**
      * Computes the nth number from the Fibonacci sequence recursively.
      *
      * @param n The index of the Fibonacci sequence to compute.
@@ -33,7 +31,7 @@ public class Fibonacci {
         }
     }
 
-    /*
+    /**
      * Computes the nth number from the Fibonacci sequence iteratively.
      *
      * @param n The index of the Fibonacci sequence to compute.
@@ -54,7 +52,7 @@ public class Fibonacci {
         return result;
     }
 
-    /*
+    /**
      * Computes the nth number from the Fibonacci sequence using a different recursive approach.
      *
      * @param n The index of the Fibonacci sequence to compute.

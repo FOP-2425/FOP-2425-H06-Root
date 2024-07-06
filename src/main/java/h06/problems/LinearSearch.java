@@ -1,12 +1,11 @@
 package h06.problems;
 
-import org.tudalgo.algoutils.student.annotation.StudentCreationRequired;
 import org.tudalgo.algoutils.student.annotation.StudentImplementationRequired;
 
 public class LinearSearch {
 
     /**
-     * Searches for a target in an array using linear search.
+     * Recursively searches for a target in an array using linear search.
      *
      * @param arr    the array to search in
      * @param target the target to search for
@@ -18,7 +17,7 @@ public class LinearSearch {
     }
 
     /**
-     * Searches for a target in an array using linear search.
+     * Recursively searches for a target in an array using linear search.
      *
      * @param arr    the array to search in
      * @param target the target to search for
@@ -37,7 +36,7 @@ public class LinearSearch {
     }
 
     /**
-     * Searches for a target in an array using linear search.
+     * Iteratively searches for a target in an array using linear search.
      *
      * @param arr    the array to search in
      * @param target the target to search for
