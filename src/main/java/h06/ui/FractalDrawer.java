@@ -9,7 +9,7 @@ import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 import java.util.List;
 
-/*
+/**
  * A class for drawing fractals, given their drawing instructions.
  *
  * @author Manuel Peters
@@ -19,13 +19,13 @@ public class FractalDrawer extends JPanel {
     private final DrawInstruction[] drawInstructions;
     private final List<Line2D> lines;
 
-    /*
+    /**
      * The angle in radians for a turn.
      * This angle determines how far a left or right turn will go.
      */
     private final double angle;
 
-    /*
+    /**
      * Constructor for this class.
      *
      * @param drawInstructions the instructions to draw the fractal
@@ -37,7 +37,7 @@ public class FractalDrawer extends JPanel {
         this.angle = Math.toRadians(angle);
     }
 
-    /*
+    /**
      * Draws on the canvas by following the drawing instructions
      */
     @Override

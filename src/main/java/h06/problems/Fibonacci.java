@@ -3,8 +3,6 @@ package h06.problems;
 import org.tudalgo.algoutils.student.annotation.DoNotTouch;
 import org.tudalgo.algoutils.student.annotation.StudentImplementationRequired;
 
-// man darf als Student davon ausgehen, dass nur für n>=0 gelöst werden muss ?
-
 /**
  * A class containing different implementations for computing the nth number in the Fibonacci sequence.
  *

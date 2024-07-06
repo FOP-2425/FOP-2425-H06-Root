@@ -26,7 +26,7 @@ public class Fractals {
      * @return the result of a raised to the power of b
      */
     @StudentImplementationRequired
-    private static int pow(int a, int b) {
+    public static int pow(int a, int b) {
         if(b == 0) {
             return 1;
         } else {
@@ -43,7 +43,7 @@ public class Fractals {
      * @return A new array containing all elements of arr1 followed by all elements of arr2
      */
     @StudentImplementationRequired
-    private static DrawInstruction[] concatenate(DrawInstruction[] arr1, DrawInstruction[] arr2) {
+    public static DrawInstruction[] concatenate(DrawInstruction[] arr1, DrawInstruction[] arr2) {
         DrawInstruction[] newArr = new DrawInstruction[arr1.length + arr2.length];
 
         for (int i = 0; i < arr1.length; i++) {
@@ -67,7 +67,7 @@ public class Fractals {
      * @return A new array with the element at idx replaced by elem
      */
     @StudentImplementationRequired
-    private static DrawInstruction[] replaceAtIndex(DrawInstruction[] arr, int idx, DrawInstruction elem) {
+    public static DrawInstruction[] replaceAtIndex(DrawInstruction[] arr, int idx, DrawInstruction elem) {
         DrawInstruction[] newArr = new DrawInstruction[arr.length];
 
         for (int i = 0; i < newArr.length; i++) {

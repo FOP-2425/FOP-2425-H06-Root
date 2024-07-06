@@ -1,6 +1,5 @@
 package h06.problems;
 
-import org.tudalgo.algoutils.student.annotation.StudentCreationRequired;
 import org.tudalgo.algoutils.student.annotation.StudentImplementationRequired;
 
 public class LinearSearch {
