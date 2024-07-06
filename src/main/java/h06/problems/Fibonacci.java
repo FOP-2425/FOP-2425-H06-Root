@@ -32,6 +32,23 @@ public class Fibonacci {
     }
 
     /**
+     * Computes the nth number from the Fibonacci sequence using a different recursive approach.
+     *
+     * @param n The index of the Fibonacci sequence to compute.
+     * @return The nth number from the Fibonacci sequence.
+     */
+    @StudentImplementationRequired
+    public static int fibonacciRecursiveDifferent(int n) {
+        return doTheRecursion(0, 1, n);
+    }
+
+    @StudentImplementationRequired
+    private static int doTheRecursion(int a, int b, int n) {
+        // Verbindliche Anforderung: Bedingungsoperator verwenden!
+        return n <= 0 ? a : doTheRecursion(b, a+b, n-1);
+    }
+
+    /**
      * Computes the nth number from the Fibonacci sequence iteratively.
      *
      * @param n The index of the Fibonacci sequence to compute.
@@ -50,22 +67,5 @@ public class Fibonacci {
         }
 
         return result;
-    }
-
-    /**
-     * Computes the nth number from the Fibonacci sequence using a different recursive approach.
-     *
-     * @param n The index of the Fibonacci sequence to compute.
-     * @return The nth number from the Fibonacci sequence.
-     */
-    @StudentImplementationRequired
-    public static int fibonacciRecursiveDifferent(int n) {
-        return doTheRecursion(0, 1, n);
-    }
-
-    @StudentImplementationRequired
-    private static int doTheRecursion(int a, int b, int n) {
-        // Verbindliche Anforderung: Bedingungsoperator verwenden!
-        return n <= 0 ? a : doTheRecursion(b, a+b, n-1);
     }
 }
