@@ -1,6 +1,8 @@
 package h06;
 
 import org.sourcegrade.jagr.api.rubric.*;
+import org.tudalgo.algoutils.tutor.general.json.JsonParameterSet;
+
 import static org.tudalgo.algoutils.tutor.general.jagr.RubricUtils.criterion;
 
 public class H06_RubricProvider implements RubricProvider {
@@ -54,44 +56,51 @@ public class H06_RubricProvider implements RubricProvider {
 
     private static final Criterion H6_2_1 = Criterion.builder()
         .shortDescription("H6.2.1 | Lineare Suche rekursiv")
+        .minPoints(0)
         .maxPoints(4)
         .addChildCriteria(
             criterion(
-                "Die Methode linearSearchRecursive gibt den korrekten Index zurück."
+                "Die Methode linearSearchRecursive gibt den korrekten Index zurück.",
+                JUnitTestRef.ofMethod(() -> LinearSearchTest.class.getDeclaredMethod("testLinearSearchRecursive", JsonParameterSet.class))
             ),
             criterion(
-                "Die Hilfsmethode wird mit den korrekten Parametern aufgerufen."
+                "Die Hilfsmethode wird mit den korrekten Parametern aufgerufen.",
+                JUnitTestRef.ofMethod(() -> LinearSearchTest.class.getDeclaredMethod("testLinearSearchRecursiveHelperCall", JsonParameterSet.class))
             ),
             criterion(
-                "Die Methode linearSearchRecursiveHelper gibt den korrekten Index zurück."
+                "Die Methode linearSearchRecursiveHelper gibt den korrekten Index zurück.",
+                JUnitTestRef.ofMethod(() -> LinearSearchTest.class.getDeclaredMethod("testLinearSearchRecursiveHelper", JsonParameterSet.class))
             ),
             criterion(
-                "Es wird -1 zurückgegeben, wenn das Element nicht gefunden wird."
+                "Es wird -1 zurückgegeben, wenn das Element nicht gefunden wird.",
+                JUnitTestRef.ofMethod(() -> LinearSearchTest.class.getDeclaredMethod("testLinearSearchRecursiveHelperTargetNotInArray", JsonParameterSet.class))
             ),
             criterion(
                 "Verbindliche Anforderung nicht erfüllt",
-                null,
-                -4
+                -4,
+                JUnitTestRef.ofMethod(() -> LinearSearchTest.class.getDeclaredMethod("testLinearSearchRecursiveHelperVAnforderung"))
             ) // Punktabzug wenn nicht erfüllt
         )
         .build();
 
     private static final Criterion H6_2_2 = Criterion.builder()
         .shortDescription("H6.2.2 | Lineare Suche iterativ")
+        .minPoints(0)
         .maxPoints(3)
         .addChildCriteria(
             criterion(
                 "Die Methode linearSearchIterative gibt den korrekten Index zurück.",
-                null,
-                2
+                2,
+                JUnitTestRef.ofMethod(() -> LinearSearchTest.class.getDeclaredMethod("testLinearSearchIterative", JsonParameterSet.class))
             ),
             criterion(
-                "Es wird -1 zurückgegeben, wenn das Element nicht gefunden wird."
+                "Es wird -1 zurückgegeben, wenn das Element nicht gefunden wird.",
+                JUnitTestRef.ofMethod(() -> LinearSearchTest.class.getDeclaredMethod("testLinearSearchIterativeTargetNotInArray", JsonParameterSet.class))
             ),
             criterion(
                 "Verbindliche Anforderung nicht erfüllt",
-                null,
-                -3
+                -3,
+                JUnitTestRef.ofMethod(() -> LinearSearchTest.class.getDeclaredMethod("testLinearSearchIterativeVAnforderung"))
             ) // Punktabzug wenn nicht erfüllt
         )
         .build();
