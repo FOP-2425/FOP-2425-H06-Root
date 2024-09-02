@@ -115,18 +115,21 @@ public class H06_RubricProvider implements RubricProvider {
 
     private static final Criterion H6_3_1 = Criterion.builder()
         .shortDescription("H6.3.1 | Funktion pow")
+        .minPoints(0)
         .maxPoints(2)
         .addChildCriteria(
             criterion(
-                "Die Methode pow gibt das korrekte Ergebnis für b = 0 zurück."
+                "Die Methode pow gibt das korrekte Ergebnis für b = 0 zurück.",
+                JUnitTestRef.ofMethod(() -> FractalsTest.class.getDeclaredMethod("testPowExponentZero", int.class))
             ),
             criterion(
-                "Die Methode pow gibt das korrekte Ergebnis für b > 0 zurück."
+                "Die Methode pow gibt das korrekte Ergebnis für b > 0 zurück.",
+                JUnitTestRef.ofMethod(() -> FractalsTest.class.getDeclaredMethod("testPowExponentPositive", int.class))
             ),
             criterion(
                 "Verbindliche Anforderung nicht erfüllt",
-                null,
-                -2
+                -2,
+                JUnitTestRef.ofMethod(() -> FractalsTest.class.getDeclaredMethod("testPowVAnforderung"))
             ) // Punktabzug wenn nicht erfüllt
         )
         .build();
