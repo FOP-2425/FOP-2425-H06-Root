@@ -7,18 +7,21 @@ public class H06_RubricProvider implements RubricProvider {
 
     private static final Criterion H6_1_1 = Criterion.builder()
         .shortDescription("H6.1.1 | Fibonacci rekursiv")
+        .minPoints(0)
         .maxPoints(2)
         .addChildCriteria(
             criterion(
-                "Die Hilfsmethode doTheRecursion wurde korrekt implementiert."
+                "Die Hilfsmethode doTheRecursion wurde korrekt implementiert.",
+                JUnitTestRef.ofMethod(() -> FibonacciTest.class.getDeclaredMethod("testDoTheRecursion", int.class))
             ),
             criterion(
-                "Die Methode fibonacciRecursiveDifferent ruft die Hilfsmethode auf und gibt die selben Werte wie fibonacciRecursiveClassic zurück."
+                "Die Methode fibonacciRecursiveDifferent ruft die Hilfsmethode auf und gibt die selben Werte wie fibonacciRecursiveClassic zurück.",
+                JUnitTestRef.ofMethod(() -> FibonacciTest.class.getDeclaredMethod("testFibonacciRecursiveDifferent", int.class))
             ),
             criterion(
                 "Verbindliche Anforderung nicht erfüllt",
-                null,
-                -2
+                -2,
+                JUnitTestRef.ofMethod(() -> FibonacciTest.class.getDeclaredMethod("testFibonacciRecursiveVAnforderung"))
             ) // Punktabzug wenn nicht erfüllt
         )
         .build();
