@@ -28,15 +28,18 @@ public class H06_RubricProvider implements RubricProvider {
 
     private static final Criterion H6_1_2 = Criterion.builder()
         .shortDescription("H6.1.2 | Fibonacci iterativ")
+        .minPoints(0)
         .maxPoints(3)
         .addChildCriteria(
             criterion(
-                "Die Methode fibonacciIterative gibt die selben Werte wie fibonacciRecursiveClassic zurück."
+                "Die Methode fibonacciIterative gibt die selben Werte wie fibonacciRecursiveClassic zurück.",
+                3,
+                JUnitTestRef.ofMethod(() -> FibonacciTest.class.getDeclaredMethod("testFibonacciIterative", int.class))
             ),
             criterion(
                 "Verbindliche Anforderung nicht erfüllt",
-                null,
-                -3
+                -3,
+                JUnitTestRef.ofMethod(() -> FibonacciTest.class.getDeclaredMethod("testFibonacciIterativeVAnforderung"))
             ) // Punktabzug wenn nicht erfüllt
         )
         .build();

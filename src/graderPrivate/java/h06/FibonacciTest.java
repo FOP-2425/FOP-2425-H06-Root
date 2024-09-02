@@ -25,6 +25,7 @@ import java.util.List;
 import java.util.Map;
 
 import static org.tudalgo.algoutils.tutor.general.assertions.Assertions2.*;
+import static org.tudalgo.algoutils.tutor.general.assertions.Assertions4.assertIsNotRecursively;
 
 @TestForSubmission
 public class FibonacciTest {
@@ -134,6 +135,26 @@ public class FibonacciTest {
         }
         assertFalse(usesLoops, emptyContext(), result -> "Method doTheRecursion uses loops");
         assertFalse(usesIf, emptyContext(), result -> "Method doTheRecursion uses if statements");
+    }
+
+    @ParameterizedTest
+    @ValueSource(ints = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 20})
+    public void testFibonacciIterative(int n) {
+        Context context = contextBuilder()
+            .add("n", n)
+            .build();
+        int expected = Fibonacci.fibonacciRecursiveClassic(n);
+        int actual = callObject(() -> Fibonacci.fibonacciIterative(n), context, result ->
+            "An exception occurred while invoking method fibonacciIterative");
+        assertEquals(expected, actual, context, result ->
+            "Method fibonacciIterative did not return the same value as fibonacciRecursiveClassic");
+    }
+
+    @Test
+    public void testFibonacciIterativeVAnforderung() {
+        CtMethod<?> fibonacciIterativeCtMethod = getCtMethod("fibonacciIterative", int.class);
+        assertIsNotRecursively(fibonacciIterativeCtMethod, emptyContext(), result ->
+            "Method fibonacciIterative uses recursion");
     }
 
     private static CtMethod<?> getCtMethod(String methodName, Class<?>... paramTypes) {
