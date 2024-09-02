@@ -2,11 +2,17 @@ package h06;
 
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import h06.ui.DrawInstruction;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.condition.DisabledIf;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
+import java.util.function.BiFunction;
 import java.util.stream.Collectors;
 
 import static h06.TestConstants.TEST_ITERATIONS;
@@ -45,6 +51,40 @@ public class TestJsonGenerators {
             },
             TEST_ITERATIONS,
             "LinearSearchDataSet.json"
+        );
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = {"First", "Second", "Both"})
+    public void generateFractalsConcatDataSet(String concatType) throws IOException {
+        DrawInstruction[] drawInstructions = DrawInstruction.values();
+        BiFunction<String, Random, Integer> arr1Length = (s, rnd) -> s.equals("Second") ? 0 : rnd.nextInt(1, 10);
+        BiFunction<String, Random, Integer> arr2Length = (s, rnd) -> s.equals("First") ? 0 : rnd.nextInt(1, 10);
+
+        TestUtils.generateJsonTestData(
+            (mapper, index, rnd) -> {
+                int arr1Size = arr1Length.apply(concatType, rnd);
+                List<String> arr1 = new ArrayList<>();
+                for (int i = 0; i < arr1Size; i++) {
+                    arr1.add(drawInstructions[rnd.nextInt(drawInstructions.length)].name());
+                }
+                int arr2Size = arr2Length.apply(concatType, rnd);
+                List<String> arr2 = new ArrayList<>();
+                for (int i = 0; i < arr2Size; i++) {
+                    arr2.add(drawInstructions[rnd.nextInt(drawInstructions.length)].name());
+                }
+
+                ArrayNode arr1ArrayNode = mapper.createArrayNode();
+                arr1.forEach(arr1ArrayNode::add);
+                ArrayNode arr2ArrayNode = mapper.createArrayNode();
+                arr2.forEach(arr2ArrayNode::add);
+                ObjectNode objectNode = mapper.createObjectNode();
+                objectNode.set("arr1", arr1ArrayNode);
+                objectNode.set("arr2", arr2ArrayNode);
+                return objectNode;
+            },
+            TEST_ITERATIONS,
+            "FractalsConcatDataSet" + concatType + ".json"
         );
     }
 }

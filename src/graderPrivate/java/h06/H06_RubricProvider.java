@@ -136,24 +136,29 @@ public class H06_RubricProvider implements RubricProvider {
 
     private static final Criterion H6_3_2 = Criterion.builder()
         .shortDescription("H6.3.2 | Funktion concatenate")
+        .minPoints(0)
         .maxPoints(4)
         .addChildCriteria(
             criterion(
-                "Die Länge des Ergebnisarrays ist die Summe der Längen der beiden Eingabearrays."
+                "Die Länge des Ergebnisarrays ist die Summe der Längen der beiden Eingabearrays.",
+                JUnitTestRef.ofMethod(() -> FractalsTest.class.getDeclaredMethod("testConcatenateLength", JsonParameterSet.class))
             ),
             criterion(
-                "Das resultierende Array enthält nur die Elemente von arr1, wenn arr2.length == 0 ist."
+                "Das resultierende Array enthält nur die Elemente von arr1, wenn arr2.length == 0 ist.",
+                JUnitTestRef.ofMethod(() -> FractalsTest.class.getDeclaredMethod("testConcatenateFirstOnly", JsonParameterSet.class))
             ),
             criterion(
-                "Das resultierende Array enthält nur die Elemente von arr2, wenn arr1.length == 0 ist."
+                "Das resultierende Array enthält nur die Elemente von arr2, wenn arr1.length == 0 ist.",
+                JUnitTestRef.ofMethod(() -> FractalsTest.class.getDeclaredMethod("testConcatenateSecondOnly", JsonParameterSet.class))
             ),
             criterion(
-                "Das resultierende Array enthält alle Elemente von arr1 gefolgt von allen Elementen von arr2, wenn beide Arrays Elemente enthalten."
+                "Das resultierende Array enthält alle Elemente von arr1 gefolgt von allen Elementen von arr2, wenn beide Arrays Elemente enthalten.",
+                JUnitTestRef.ofMethod(() -> FractalsTest.class.getDeclaredMethod("testConcatenateBoth", JsonParameterSet.class))
             ),
             criterion(
                 "Verbindliche Anforderung nicht erfüllt",
-                null,
-                -4
+                -4,
+                JUnitTestRef.ofMethod(() -> FractalsTest.class.getDeclaredMethod("testConcatenateVAnforderung"))
             ) // Punktabzug wenn nicht erfüllt
         )
         .build();
