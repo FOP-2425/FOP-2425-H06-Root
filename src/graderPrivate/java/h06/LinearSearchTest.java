@@ -7,18 +7,16 @@ import org.mockito.MockedStatic;
 import org.mockito.Mockito;
 import org.mockito.stubbing.Answer;
 import org.sourcegrade.jagr.api.rubric.TestForSubmission;
-import org.tudalgo.algoutils.tutor.general.SpoonUtils;
 import org.tudalgo.algoutils.tutor.general.assertions.Context;
 import org.tudalgo.algoutils.tutor.general.json.JsonParameterSet;
 import org.tudalgo.algoutils.tutor.general.json.JsonParameterSetTest;
-import spoon.reflect.declaration.CtMethod;
-import spoon.reflect.declaration.CtParameter;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import static h06.TestUtils.getCtMethod;
 import static org.tudalgo.algoutils.tutor.general.assertions.Assertions2.*;
 import static org.tudalgo.algoutils.tutor.general.assertions.Assertions4.assertIsNotIteratively;
 import static org.tudalgo.algoutils.tutor.general.assertions.Assertions4.assertIsNotRecursively;
@@ -111,7 +109,7 @@ public class LinearSearchTest {
 
     @Test
     public void testLinearSearchRecursiveHelperVAnforderung() {
-        assertIsNotIteratively(getCtMethod("linearSearchRecursiveHelper", int[].class, int.class, int.class),
+        assertIsNotIteratively(getCtMethod(LinearSearch.class, "linearSearchRecursiveHelper", int[].class, int.class, int.class),
             emptyContext(),
             result -> "Method linearSearchRecursiveHelper is not recursive");
     }
@@ -141,24 +139,8 @@ public class LinearSearchTest {
 
     @Test
     public void testLinearSearchIterativeVAnforderung() {
-        assertIsNotRecursively(getCtMethod("linearSearchIterative", int[].class, int.class),
+        assertIsNotRecursively(getCtMethod(LinearSearch.class, "linearSearchIterative", int[].class, int.class),
             emptyContext(),
             result -> "Method linearSearchIterative is not recursive");
-    }
-
-    private static CtMethod<?> getCtMethod(String methodName, Class<?>... paramTypes) {
-        return SpoonUtils.getType(LinearSearch.class.getName())
-            .getMethodsByName(methodName)
-            .stream()
-            .filter(ctMethod -> {
-                List<CtParameter<?>> parameters = ctMethod.getParameters();
-                boolean result = parameters.size() == paramTypes.length;
-                for (int i = 0; result && i < parameters.size(); i++) {
-                    result = parameters.get(i).getType().getQualifiedName().equals(paramTypes[i].getTypeName());
-                }
-                return result;
-            })
-            .findAny()
-            .orElseThrow();
     }
 }

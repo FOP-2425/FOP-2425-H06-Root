@@ -1,18 +1,13 @@
 package h06;
 
 import h06.problems.Fractals;
-import h06.problems.LinearSearch;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 import org.sourcegrade.jagr.api.rubric.TestForSubmission;
-import org.tudalgo.algoutils.tutor.general.SpoonUtils;
 import org.tudalgo.algoutils.tutor.general.assertions.Context;
-import spoon.reflect.declaration.CtMethod;
-import spoon.reflect.declaration.CtParameter;
 
-import java.util.List;
-
+import static h06.TestUtils.getCtMethod;
 import static org.tudalgo.algoutils.tutor.general.assertions.Assertions2.*;
 import static org.tudalgo.algoutils.tutor.general.assertions.Assertions4.assertIsNotIteratively;
 
@@ -50,24 +45,8 @@ public class FractalsTest {
 
     @Test
     public void testPowVAnforderung() {
-        assertIsNotIteratively(getCtMethod("pow", int.class, int.class),
+        assertIsNotIteratively(getCtMethod(Fractals.class, "pow", int.class, int.class),
             emptyContext(),
             result -> "Method pow is not recursive");
-    }
-
-    private static CtMethod<?> getCtMethod(String methodName, Class<?>... paramTypes) {
-        return SpoonUtils.getType(Fractals.class.getName())
-            .getMethodsByName(methodName)
-            .stream()
-            .filter(ctMethod -> {
-                List<CtParameter<?>> parameters = ctMethod.getParameters();
-                boolean result = parameters.size() == paramTypes.length;
-                for (int i = 0; result && i < parameters.size(); i++) {
-                    result = parameters.get(i).getType().getQualifiedName().equals(paramTypes[i].getTypeName());
-                }
-                return result;
-            })
-            .findAny()
-            .orElseThrow();
     }
 }

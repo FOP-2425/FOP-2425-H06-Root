@@ -3,9 +3,13 @@ package h06;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import org.tudalgo.algoutils.tutor.general.SpoonUtils;
+import spoon.reflect.declaration.CtMethod;
+import spoon.reflect.declaration.CtParameter;
 
 import java.io.IOException;
 import java.nio.file.Paths;
+import java.util.List;
 import java.util.Random;
 
 import static h06.TestConstants.RANDOM_SEED;
@@ -56,5 +60,29 @@ public abstract class TestUtils {
         final var file = path.toFile();
         file.createNewFile();
         mapper.writerWithDefaultPrettyPrinter().writeValue(file, arrayNode);
+    }
+
+    /**
+     * Get the Spoon representation of a method.
+     *
+     * @param clazz      the class the method is defined in
+     * @param methodName the name of the method
+     * @param paramTypes the formal parameters of the method
+     * @return the Spoon {@link CtMethod} object
+     */
+    public static CtMethod<?> getCtMethod(Class<?> clazz, String methodName, Class<?>... paramTypes) {
+        return SpoonUtils.getType(clazz.getName())
+            .getMethodsByName(methodName)
+            .stream()
+            .filter(ctMethod -> {
+                List<CtParameter<?>> parameters = ctMethod.getParameters();
+                boolean result = parameters.size() == paramTypes.length;
+                for (int i = 0; result && i < parameters.size(); i++) {
+                    result = parameters.get(i).getType().getQualifiedName().equals(paramTypes[i].getTypeName());
+                }
+                return result;
+            })
+            .findAny()
+            .orElseThrow();
     }
 }

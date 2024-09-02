@@ -9,14 +9,12 @@ import org.mockito.MockedStatic;
 import org.mockito.Mockito;
 import org.mockito.stubbing.Answer;
 import org.sourcegrade.jagr.api.rubric.TestForSubmission;
-import org.tudalgo.algoutils.tutor.general.SpoonUtils;
 import org.tudalgo.algoutils.tutor.general.assertions.Context;
 import spoon.reflect.code.CtIf;
 import spoon.reflect.code.CtInvocation;
 import spoon.reflect.code.CtLoop;
 import spoon.reflect.declaration.CtElement;
 import spoon.reflect.declaration.CtMethod;
-import spoon.reflect.declaration.CtParameter;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
@@ -24,6 +22,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import static h06.TestUtils.getCtMethod;
 import static org.tudalgo.algoutils.tutor.general.assertions.Assertions2.*;
 import static org.tudalgo.algoutils.tutor.general.assertions.Assertions4.assertIsNotRecursively;
 
@@ -110,8 +109,8 @@ public class FibonacciTest {
 
     @Test
     public void testFibonacciRecursiveVAnforderung() {
-        CtMethod<?> fibonacciRecursiveDifferentCtMethod = getCtMethod("fibonacciRecursiveDifferent", int.class);
-        CtMethod<?> doTheRecursionCtMethod = getCtMethod("doTheRecursion", int.class, int.class, int.class);
+        CtMethod<?> fibonacciRecursiveDifferentCtMethod = getCtMethod(Fibonacci.class, "fibonacciRecursiveDifferent", int.class);
+        CtMethod<?> doTheRecursionCtMethod = getCtMethod(Fibonacci.class, "doTheRecursion", int.class, int.class, int.class);
 
         Iterator<CtElement> fibonacciRecursiveDifferentIterator = fibonacciRecursiveDifferentCtMethod.getBody().descendantIterator();
         boolean callsHelperMethod = false;
@@ -152,24 +151,8 @@ public class FibonacciTest {
 
     @Test
     public void testFibonacciIterativeVAnforderung() {
-        CtMethod<?> fibonacciIterativeCtMethod = getCtMethod("fibonacciIterative", int.class);
+        CtMethod<?> fibonacciIterativeCtMethod = getCtMethod(Fibonacci.class, "fibonacciIterative", int.class);
         assertIsNotRecursively(fibonacciIterativeCtMethod, emptyContext(), result ->
             "Method fibonacciIterative uses recursion");
-    }
-
-    private static CtMethod<?> getCtMethod(String methodName, Class<?>... paramTypes) {
-        return SpoonUtils.getType(Fibonacci.class.getName())
-            .getMethodsByName(methodName)
-            .stream()
-            .filter(ctMethod -> {
-                List<CtParameter<?>> parameters = ctMethod.getParameters();
-                boolean result = parameters.size() == paramTypes.length;
-                for (int i = 0; result && i < parameters.size(); i++) {
-                    result = parameters.get(i).getType().getQualifiedName().equals(paramTypes[i].getTypeName());
-                }
-                return result;
-            })
-            .findAny()
-            .orElseThrow();
     }
 }
