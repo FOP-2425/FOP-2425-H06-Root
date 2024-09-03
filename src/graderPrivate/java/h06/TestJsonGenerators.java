@@ -2,6 +2,7 @@ package h06;
 
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import h06.problems.Fractals;
 import h06.ui.DrawInstruction;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.condition.DisabledIf;
@@ -12,6 +13,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.BiFunction;
 import java.util.stream.Collectors;
 
@@ -112,6 +114,31 @@ public class TestJsonGenerators {
             },
             TEST_ITERATIONS,
             "FractalsReplaceAtIndexDataSet.json"
+        );
+    }
+
+    @Test
+    public void generateFractalsDragonCurveDataSet() throws IOException {
+        AtomicInteger atomicN = new AtomicInteger(2);
+
+        TestUtils.generateJsonTestData(
+            (mapper, index, rnd) -> {
+                int n = atomicN.getAndIncrement();
+                DrawInstruction[] dragonCurveInstructions = Fractals.dragonCurve(n);
+                List<String> expected = new ArrayList<>();
+                for (int i = 0; i < dragonCurveInstructions.length; i++) {
+                    expected.add(dragonCurveInstructions[i].name());
+                }
+
+                ArrayNode arrayNode = mapper.createArrayNode();
+                expected.forEach(arrayNode::add);
+                ObjectNode objectNode = mapper.createObjectNode();
+                objectNode.put("n", n);
+                objectNode.set("expected", arrayNode);
+                return objectNode;
+            },
+            8,
+            "FractalsDragonCurveDataSet.json"
         );
     }
 }

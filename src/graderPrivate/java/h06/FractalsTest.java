@@ -212,6 +212,46 @@ public class FractalsTest {
         assertIsNotRecursively(ctMethod, emptyContext(), result -> "Method replaceAtIndex is not iterative");
     }
 
+    @Test
+    public void testDragonCurveZero() {
+        testDragonCurve(0, new DrawInstruction[] {DrawInstruction.DRAW_LINE});
+    }
+
+    @Test
+    public void testDragonCurveOne() {
+        testDragonCurve(1, new DrawInstruction[] {DrawInstruction.DRAW_LINE, DrawInstruction.TURN_RIGHT, DrawInstruction.DRAW_LINE});
+    }
+
+    @ParameterizedTest
+    @JsonParameterSetTest("FractalsDragonCurveDataSet.json")
+    public void testDragonCurveN(JsonParameterSet params) {
+        int n = params.getInt("n");
+        DrawInstruction[] expected = toDrawInstructions(params.get("expected"));
+        testDragonCurve(n, expected);
+    }
+
+    @Test
+    public void testDragonCurveVAnforderung() {
+        CtMethod<?> ctMethod = getCtMethod(Fractals.class, "dragonCurve", int.class);
+        assertIsNotIteratively(ctMethod, emptyContext(), result -> "Method dragonCurve is not recursive");
+    }
+
+    private void testDragonCurve(int n, DrawInstruction[] expected) {
+        Context context = contextBuilder()
+            .add("n", n)
+            .build();
+        DrawInstruction[] actual = callObject(() -> Fractals.dragonCurve(n), context, result ->
+            "An exception occurred while invoking method dragonCurve");
+
+        assertEquals(expected.length, actual.length, context, result ->
+            "The length of the returned array differs from expected value");
+        for (int i = 0; i < expected.length; i++) {
+            final int finalI = i;
+            assertEquals(expected[i], actual[i], context, result ->
+                "Value at index %d of the returned array differs from expected value".formatted(finalI));
+        }
+    }
+
     private static DrawInstruction[] toDrawInstructions(List<String> drawInstructions) {
         DrawInstruction[] instructions = new DrawInstruction[drawInstructions.size()];
         for (int i = 0; i < instructions.length; i++) {

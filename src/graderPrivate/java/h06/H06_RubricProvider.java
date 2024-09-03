@@ -194,23 +194,26 @@ public class H06_RubricProvider implements RubricProvider {
 
     private static final Criterion H6_3_4 = Criterion.builder()
         .shortDescription("H6.3.4 | Drachenkurve")
+        .minPoints(0)
         .maxPoints(4)
         .addChildCriteria(
             criterion(
-                "Die Methode dragonCurve gibt für n <= 0 das korrekte Ergebnis zurück."
+                "Die Methode dragonCurve gibt für n <= 0 das korrekte Ergebnis zurück.",
+                JUnitTestRef.ofMethod(() -> FractalsTest.class.getDeclaredMethod("testDragonCurveZero"))
             ),
             criterion(
-                "Die Methode dragonCurve gibt für n == 1 das korrekte Ergebnis zurück."
+                "Die Methode dragonCurve gibt für n == 1 das korrekte Ergebnis zurück.",
+                JUnitTestRef.ofMethod(() -> FractalsTest.class.getDeclaredMethod("testDragonCurveOne"))
             ),
             criterion(
                 "Die Methode dragonCurve gibt für n > 1 das korrekte Ergebnis zurück.",
-                null,
-                2
+                2,
+                JUnitTestRef.ofMethod(() -> FractalsTest.class.getDeclaredMethod("testDragonCurveN", JsonParameterSet.class))
             ),
             criterion(
                 "Verbindliche Anforderung nicht erfüllt",
-                null,
-                -4
+                -4,
+                JUnitTestRef.ofMethod(() -> FractalsTest.class.getDeclaredMethod("testDragonCurveVAnforderung"))
             ) // Punktabzug wenn nicht erfüllt
         )
         .build();
