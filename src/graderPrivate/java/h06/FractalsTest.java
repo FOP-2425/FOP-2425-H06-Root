@@ -13,7 +13,6 @@ import spoon.reflect.code.CtInvocation;
 import spoon.reflect.declaration.CtElement;
 import spoon.reflect.declaration.CtMethod;
 
-import java.lang.reflect.Method;
 import java.util.Iterator;
 import java.util.List;
 
@@ -24,6 +23,18 @@ import static org.tudalgo.algoutils.tutor.general.assertions.Assertions4.assertI
 
 @TestForSubmission
 public class FractalsTest {
+
+    private Context concatContext;  // say it three times
+    private DrawInstruction[] arr1;
+    private DrawInstruction[] arr2;
+
+    private DrawInstruction[] concatenateSetup(JsonParameterSet params) {
+        concatContext = params.toContext();
+        arr1 = toDrawInstructions(params.get("arr1"));
+        arr2 = toDrawInstructions(params.get("arr2"));
+        return callObject(() -> Fractals.concatenate(arr1, arr2), concatContext, result ->
+            "An exception occurred while invoking method concatenate");
+    }
 
     @ParameterizedTest
     @ValueSource(ints = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9})
@@ -64,29 +75,21 @@ public class FractalsTest {
     @ParameterizedTest
     @JsonParameterSetTest("FractalsConcatDataSetBoth.json")
     public void testConcatenateLength(JsonParameterSet params) {
-        Context context = params.toContext();
-        DrawInstruction[] arr1 = toDrawInstructions(params.get("arr1"));
-        DrawInstruction[] arr2 = toDrawInstructions(params.get("arr2"));
-        DrawInstruction[] arrResult = callObject(() -> Fractals.concatenate(arr1, arr2), context, result ->
-            "An exception occurred while invoking method concatenate");
-        assertEquals(arr1.length + arr2.length, arrResult.length, context, result ->
+        DrawInstruction[] arrResult = concatenateSetup(params);
+        assertEquals(arr1.length + arr2.length, arrResult.length, concatContext, result ->
             "The length of the array returned by method concatenate is incorrect");
     }
 
     @ParameterizedTest
     @JsonParameterSetTest("FractalsConcatDataSetFirst.json")
     public void testConcatenateFirstOnly(JsonParameterSet params) {
-        Context context = params.toContext();
-        DrawInstruction[] arr1 = toDrawInstructions(params.get("arr1"));
-        DrawInstruction[] arr2 = toDrawInstructions(params.get("arr2"));
-        DrawInstruction[] arrResult = callObject(() -> Fractals.concatenate(arr1, arr2), context, result ->
-            "An exception occurred while invoking method concatenate");
+        DrawInstruction[] arrResult = concatenateSetup(params);
 
-        assertEquals(arr1.length, arrResult.length, context, result ->
+        assertEquals(arr1.length, arrResult.length, concatContext, result ->
             "The length of the array returned by method concatenate is incorrect");
         for (int i = 0; i < arr1.length; i++) {
             final int finalI = i;
-            assertEquals(arr1[i], arrResult[i], context, result ->
+            assertEquals(arr1[i], arrResult[i], concatContext, result ->
                 "Value at index %d of the returned array differs from expected value".formatted(finalI));
         }
     }
@@ -94,17 +97,13 @@ public class FractalsTest {
     @ParameterizedTest
     @JsonParameterSetTest("FractalsConcatDataSetSecond.json")
     public void testConcatenateSecondOnly(JsonParameterSet params) {
-        Context context = params.toContext();
-        DrawInstruction[] arr1 = toDrawInstructions(params.get("arr1"));
-        DrawInstruction[] arr2 = toDrawInstructions(params.get("arr2"));
-        DrawInstruction[] arrResult = callObject(() -> Fractals.concatenate(arr1, arr2), context, result ->
-            "An exception occurred while invoking method concatenate");
+        DrawInstruction[] arrResult = concatenateSetup(params);
 
-        assertEquals(arr2.length, arrResult.length, context, result ->
+        assertEquals(arr2.length, arrResult.length, concatContext, result ->
             "The length of the array returned by method concatenate is incorrect");
         for (int i = 0; i < arr2.length; i++) {
             final int finalI = i;
-            assertEquals(arr2[i], arrResult[i], context, result ->
+            assertEquals(arr2[i], arrResult[i], concatContext, result ->
                 "Value at index %d of the returned array differs from expected value".formatted(finalI));
         }
     }
@@ -112,28 +111,24 @@ public class FractalsTest {
     @ParameterizedTest
     @JsonParameterSetTest("FractalsConcatDataSetBoth.json")
     public void testConcatenateBoth(JsonParameterSet params) {
-        Context context = params.toContext();
-        DrawInstruction[] arr1 = toDrawInstructions(params.get("arr1"));
-        DrawInstruction[] arr2 = toDrawInstructions(params.get("arr2"));
-        DrawInstruction[] arrResult = callObject(() -> Fractals.concatenate(arr1, arr2), context, result ->
-            "An exception occurred while invoking method concatenate");
+        DrawInstruction[] arrResult = concatenateSetup(params);
 
-        assertEquals(arr1.length + arr2.length, arrResult.length, context, result ->
+        assertEquals(arr1.length + arr2.length, arrResult.length, concatContext, result ->
             "The length of the array returned by method concatenate is incorrect");
         for (int i = 0; i < arr1.length; i++) {
             final int finalI = i;
-            assertEquals(arr1[i], arrResult[i], context, result ->
+            assertEquals(arr1[i], arrResult[i], concatContext, result ->
                 "Value at index %d of the returned array differs from expected value".formatted(finalI));
         }
         for (int i = 0; i < arr2.length; i++) {
             final int finalI = i;
-            assertEquals(arr2[i], arrResult[arr1.length + i], context, result ->
+            assertEquals(arr2[i], arrResult[arr1.length + i], concatContext, result ->
                 "Value at index %d of the returned array differs from expected value".formatted(finalI));
         }
     }
 
     @Test
-    public void testConcatenateVAnforderung() throws ReflectiveOperationException {
+    public void testConcatenateVAnforderung() {
         CtMethod<?> concatenateCtMethod = getCtMethod(Fractals.class, "concatenate", DrawInstruction[].class, DrawInstruction[].class);
         assertIsNotRecursively(concatenateCtMethod, emptyContext(), result -> "Method concatenate is not iterative");
 
