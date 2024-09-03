@@ -236,12 +236,83 @@ public class FractalsTest {
         assertIsNotIteratively(ctMethod, emptyContext(), result -> "Method dragonCurve is not recursive");
     }
 
+    @Test
+    public void testKochSnowflakeZero() {
+        testKochSnowflake(0, new DrawInstruction[] {
+            DrawInstruction.DRAW_LINE,
+            DrawInstruction.TURN_RIGHT,
+            DrawInstruction.TURN_RIGHT,
+            DrawInstruction.DRAW_LINE,
+            DrawInstruction.TURN_RIGHT,
+            DrawInstruction.TURN_RIGHT,
+            DrawInstruction.DRAW_LINE,
+        });
+    }
+
+    @Test
+    public void testKochSnowflakeOne() {
+        testKochSnowflake(1, new DrawInstruction[] {
+            DrawInstruction.DRAW_LINE,
+            DrawInstruction.TURN_LEFT,
+            DrawInstruction.DRAW_LINE,
+            DrawInstruction.TURN_RIGHT,
+            DrawInstruction.TURN_RIGHT,
+            DrawInstruction.DRAW_LINE,
+            DrawInstruction.TURN_LEFT,
+            DrawInstruction.DRAW_LINE,
+            DrawInstruction.TURN_RIGHT,
+            DrawInstruction.TURN_RIGHT,
+            DrawInstruction.DRAW_LINE,
+            DrawInstruction.TURN_LEFT,
+            DrawInstruction.DRAW_LINE,
+            DrawInstruction.TURN_RIGHT,
+            DrawInstruction.TURN_RIGHT,
+            DrawInstruction.DRAW_LINE,
+            DrawInstruction.TURN_LEFT,
+            DrawInstruction.DRAW_LINE,
+            DrawInstruction.TURN_RIGHT,
+            DrawInstruction.TURN_RIGHT,
+            DrawInstruction.DRAW_LINE,
+            DrawInstruction.TURN_LEFT,
+            DrawInstruction.DRAW_LINE,
+            DrawInstruction.TURN_RIGHT,
+            DrawInstruction.TURN_RIGHT,
+            DrawInstruction.DRAW_LINE,
+            DrawInstruction.TURN_LEFT,
+            DrawInstruction.DRAW_LINE
+        });
+    }
+
+    @ParameterizedTest
+    @JsonParameterSetTest("FractalsKochSnowflakeDataSet.json")
+    public void testKochSnowflakeN(JsonParameterSet params) {
+        int n = params.getInt("n");
+        DrawInstruction[] expected = toDrawInstructions(params.get("expected"));
+        testKochSnowflake(n, expected);
+    }
+
     private void testDragonCurve(int n, DrawInstruction[] expected) {
         Context context = contextBuilder()
             .add("n", n)
             .build();
         DrawInstruction[] actual = callObject(() -> Fractals.dragonCurve(n), context, result ->
             "An exception occurred while invoking method dragonCurve");
+
+        assertEquals(expected.length, actual.length, context, result ->
+            "The length of the returned array differs from expected value");
+        for (int i = 0; i < expected.length; i++) {
+            final int finalI = i;
+            assertEquals(expected[i], actual[i], context, result ->
+                "Value at index %d of the returned array differs from expected value".formatted(finalI));
+        }
+    }
+
+    private void testKochSnowflake(int n, DrawInstruction[] expected) {
+        Context context = contextBuilder()
+            .add("n", n)
+            .build();
+        DrawInstruction[] actual = callObject(() -> Fractals.kochSnowflake(n), context, result ->
+            "An exception occurred while invoking method kochSnowflake");
 
         assertEquals(expected.length, actual.length, context, result ->
             "The length of the returned array differs from expected value");

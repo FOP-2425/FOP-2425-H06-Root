@@ -141,4 +141,29 @@ public class TestJsonGenerators {
             "FractalsDragonCurveDataSet.json"
         );
     }
+
+    @Test
+    public void generateFractalsKochSnowflakeDataSet() throws IOException {
+        AtomicInteger atomicN = new AtomicInteger(2);
+
+        TestUtils.generateJsonTestData(
+            (mapper, index, rnd) -> {
+                int n = atomicN.getAndIncrement();
+                DrawInstruction[] kochSnowflakeInstructions = Fractals.kochSnowflake(n);
+                List<String> expected = new ArrayList<>();
+                for (int i = 0; i < kochSnowflakeInstructions.length; i++) {
+                    expected.add(kochSnowflakeInstructions[i].name());
+                }
+
+                ArrayNode arrayNode = mapper.createArrayNode();
+                expected.forEach(arrayNode::add);
+                ObjectNode objectNode = mapper.createObjectNode();
+                objectNode.put("n", n);
+                objectNode.set("expected", arrayNode);
+                return objectNode;
+            },
+            5,
+            "FractalsKochSnowflakeDataSet.json"
+        );
+    }
 }

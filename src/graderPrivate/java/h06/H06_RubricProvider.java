@@ -220,18 +220,21 @@ public class H06_RubricProvider implements RubricProvider {
 
     private static final Criterion H6_3_5 = Criterion.builder()
         .shortDescription("H6.3.5 | Koch-Schneeflocke")
+        .minPoints(0)
         .maxPoints(5)
         .addChildCriteria(
             criterion(
-                "Die Methode kochSnowflake gibt für n <= 0 das korrekte Ergebnis zurück."
+                "Die Methode kochSnowflake gibt für n <= 0 das korrekte Ergebnis zurück.",
+                JUnitTestRef.ofMethod(() -> FractalsTest.class.getDeclaredMethod("testKochSnowflakeZero"))
             ),
             criterion(
-                "Die Methode kochSnowflake gibt für n == 1 das korrekte Ergebnis zurück."
+                "Die Methode kochSnowflake gibt für n == 1 das korrekte Ergebnis zurück.",
+                JUnitTestRef.ofMethod(() -> FractalsTest.class.getDeclaredMethod("testKochSnowflakeOne"))
             ),
             criterion(
                 "Die Methode kochSnowflake gibt für n > 1 das korrekte Ergebnis zurück.",
-                null,
-                3
+                3,
+                JUnitTestRef.ofMethod(() -> FractalsTest.class.getDeclaredMethod("testKochSnowflakeN", JsonParameterSet.class))
             )
         )
         .build();
