@@ -165,24 +165,29 @@ public class H06_RubricProvider implements RubricProvider {
 
     private static final Criterion H6_3_3 = Criterion.builder()
         .shortDescription("H6.3.3 | Funktion replaceAtIndex")
+        .minPoints(0)
         .maxPoints(4)
         .addChildCriteria(
             criterion(
-                "Die Länge des Ergebnisarrays ist die gleiche wie die des Eingabearrays."
+                "Die Länge des Ergebnisarrays ist die gleiche wie die des Eingabearrays.",
+                JUnitTestRef.ofMethod(() -> FractalsTest.class.getDeclaredMethod("testReplaceAtIndexLength", JsonParameterSet.class))
             ),
             criterion(
-                "Das Ergebnisarray enthält bis auf das Element an der angegebenen Stelle die gleichen Elemente wie das Eingabearray."
+                "Das Ergebnisarray enthält bis auf das Element an der angegebenen Stelle die gleichen Elemente wie das Eingabearray.",
+                JUnitTestRef.ofMethod(() -> FractalsTest.class.getDeclaredMethod("testReplaceAtIndexSameElements", JsonParameterSet.class))
             ),
             criterion(
-                "Das Ergebnisarray enthält das neue Element an der angegebenen Stelle."
+                "Das Ergebnisarray enthält das neue Element an der angegebenen Stelle.",
+                JUnitTestRef.ofMethod(() -> FractalsTest.class.getDeclaredMethod("testReplaceAtIndexReplacedElement", JsonParameterSet.class))
             ),
             criterion(
-                "Es wird ein neues Array zurückgegeben, das das Eingabearray nicht verändert."
+                "Es wird ein neues Array zurückgegeben, das das Eingabearray nicht verändert.",
+                JUnitTestRef.ofMethod(() -> FractalsTest.class.getDeclaredMethod("testReplaceAtIndexNewArray", JsonParameterSet.class))
             ),
             criterion(
                 "Verbindliche Anforderung nicht erfüllt",
-                null,
-                -4
+                -4,
+                JUnitTestRef.ofMethod(() -> FractalsTest.class.getDeclaredMethod("testReplaceAtIndexVAnforderung"))
             ) // Punktabzug wenn nicht erfüllt
         )
         .build();

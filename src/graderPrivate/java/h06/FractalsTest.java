@@ -36,6 +36,23 @@ public class FractalsTest {
             "An exception occurred while invoking method concatenate");
     }
 
+    private Context replaceAtIndexContext;
+    private DrawInstruction[] originalArr;
+    private DrawInstruction[] arr;
+    private int idx;
+    private DrawInstruction elem;
+
+    private DrawInstruction[] replaceAtIndexSetup(JsonParameterSet params) {
+        replaceAtIndexContext = params.toContext();
+        originalArr = toDrawInstructions(params.get("arr"));
+        arr = toDrawInstructions(params.get("arr"));
+        idx = params.getInt("idx");
+        elem = DrawInstruction.valueOf(params.get("elem"));
+
+        return callObject(() -> Fractals.replaceAtIndex(arr, idx, elem), replaceAtIndexContext, result ->
+            "An exception occurred while invoking method replaceAtIndex");
+    }
+
     @ParameterizedTest
     @ValueSource(ints = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9})
     public void testPowExponentZero(int a) {
@@ -140,6 +157,59 @@ public class FractalsTest {
             }
         }
         assertFalse(calledArraycopy, emptyContext(), result -> "Method concatenate calls System.arraycopy");
+    }
+
+    @ParameterizedTest
+    @JsonParameterSetTest("FractalsReplaceAtIndexDataSet.json")
+    public void testReplaceAtIndexLength(JsonParameterSet params) {
+        DrawInstruction[] arrResult = replaceAtIndexSetup(params);
+        assertEquals(arr.length, arrResult.length, replaceAtIndexContext, result ->
+            "The length of the array returned by replaceAtIndex does not equal the length of parameter arr");
+    }
+
+    @ParameterizedTest
+    @JsonParameterSetTest("FractalsReplaceAtIndexDataSet.json")
+    public void testReplaceAtIndexSameElements(JsonParameterSet params) {
+        DrawInstruction[] arrResult = replaceAtIndexSetup(params);
+        for (int i = 0; i < originalArr.length; i++) {
+            if (i == idx) {
+                continue;
+            }
+
+            final int finalI = i;
+            assertEquals(originalArr[i], arrResult[i], replaceAtIndexContext, result ->
+                "Value at index %d of the returned array differs from expected value".formatted(finalI));
+        }
+    }
+
+    @ParameterizedTest
+    @JsonParameterSetTest("FractalsReplaceAtIndexDataSet.json")
+    public void testReplaceAtIndexReplacedElement(JsonParameterSet params) {
+        DrawInstruction[] arrResult = replaceAtIndexSetup(params);
+        if (originalArr.length == 0) {
+            return;
+        }
+        assertEquals(elem, arrResult[idx], replaceAtIndexContext, result ->
+            "Value at index %d of the returned array differs from expected value".formatted(idx));
+    }
+
+    @ParameterizedTest
+    @JsonParameterSetTest("FractalsReplaceAtIndexDataSet.json")
+    public void testReplaceAtIndexNewArray(JsonParameterSet params) {
+        DrawInstruction[] arrResult = replaceAtIndexSetup(params);
+        assertNotSame(arr, arrResult, replaceAtIndexContext, result ->
+            "Method replaceAtIndex did not return a new array");
+        for (int i = 0; i < originalArr.length; i++) {
+            final int finalI = i;
+            assertEquals(originalArr[i], arr[i], replaceAtIndexContext, result ->
+                "Input array arr was modified at index " + finalI);
+        }
+    }
+
+    @Test
+    public void testReplaceAtIndexVAnforderung() {
+        CtMethod<?> ctMethod = getCtMethod(Fractals.class, "replaceAtIndex", DrawInstruction[].class, int.class, DrawInstruction.class);
+        assertIsNotRecursively(ctMethod, emptyContext(), result -> "Method replaceAtIndex is not iterative");
     }
 
     private static DrawInstruction[] toDrawInstructions(List<String> drawInstructions) {

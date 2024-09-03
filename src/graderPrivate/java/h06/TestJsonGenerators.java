@@ -87,4 +87,31 @@ public class TestJsonGenerators {
             "FractalsConcatDataSet" + concatType + ".json"
         );
     }
+
+    @Test
+    public void generateFractalsReplaceAtIndexDataSet() throws IOException {
+        DrawInstruction[] drawInstructions = DrawInstruction.values();
+
+        TestUtils.generateJsonTestData(
+            (mapper, index, rnd) -> {
+                int arrLength = rnd.nextInt(10);
+                List<String> arr = new ArrayList<>();
+                for (int i = 0; i < arrLength; i++) {
+                    arr.add(drawInstructions[rnd.nextInt(drawInstructions.length)].name());
+                }
+                int idx = arr.isEmpty() ? -1 : rnd.nextInt(arr.size());
+                String elem = drawInstructions[rnd.nextInt(drawInstructions.length)].name();
+
+                ArrayNode arrArrayNode = mapper.createArrayNode();
+                arr.forEach(arrArrayNode::add);
+                ObjectNode objectNode = mapper.createObjectNode();
+                objectNode.set("arr", arrArrayNode);
+                objectNode.put("idx", idx);
+                objectNode.put("elem", elem);
+                return objectNode;
+            },
+            TEST_ITERATIONS,
+            "FractalsReplaceAtIndexDataSet.json"
+        );
+    }
 }
