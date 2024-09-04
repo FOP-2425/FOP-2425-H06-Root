@@ -241,10 +241,12 @@ public class H06_RubricProvider implements RubricProvider {
 
     private static final Criterion H6_3_6 = Criterion.builder()
         .shortDescription("H6.3.6 | Visualisieren der Fraktale")
+        .minPoints(0)
         .maxPoints(1)
         .addChildCriteria(
             criterion(
-                "Ein Objekt vom Typ FractalViszalizer wird erstellt und bekommt die korrekten Parameter übergeben."
+                "Ein Objekt vom Typ FractalVisualizer wird erstellt und bekommt die korrekten Parameter übergeben.",
+                JUnitTestRef.ofMethod(() -> MainTest.class.getDeclaredMethod("testMain"))
             )
         )
         .build();
