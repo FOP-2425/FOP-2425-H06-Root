@@ -217,9 +217,10 @@ public class FractalsTest {
         assertIsNotRecursively(ctMethod, emptyContext(), result -> "Method replaceAtIndex is not iterative");
     }
 
-    @Test
-    public void testDragonCurveZero() {
-        testDragonCurve(0, new DrawInstruction[] {DrawInstruction.DRAW_LINE});
+    @ParameterizedTest
+    @ValueSource(ints = {0, -1, -5, -10})
+    public void testDragonCurveNonPositive(int n) {
+        testDragonCurve(n, new DrawInstruction[] {DrawInstruction.DRAW_LINE});
     }
 
     @Test
@@ -241,9 +242,10 @@ public class FractalsTest {
         assertIsNotIteratively(ctMethod, emptyContext(), result -> "Method dragonCurve is not recursive");
     }
 
-    @Test
-    public void testKochSnowflakeZero() {
-        testKochSnowflake(0, new DrawInstruction[] {
+    @ParameterizedTest
+    @ValueSource(ints = {0, -1, -5, -10})
+    public void testKochSnowflakeNonPositive(int n) {
+        testKochSnowflake(n, new DrawInstruction[] {
             DrawInstruction.DRAW_LINE,
             DrawInstruction.TURN_RIGHT,
             DrawInstruction.TURN_RIGHT,

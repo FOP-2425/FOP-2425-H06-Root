@@ -199,7 +199,7 @@ public class H06_RubricProvider implements RubricProvider {
         .addChildCriteria(
             criterion(
                 "Die Methode dragonCurve gibt für n <= 0 das korrekte Ergebnis zurück.",
-                JUnitTestRef.ofMethod(() -> FractalsTest.class.getDeclaredMethod("testDragonCurveZero"))
+                JUnitTestRef.ofMethod(() -> FractalsTest.class.getDeclaredMethod("testDragonCurveNonPositive", int.class))
             ),
             criterion(
                 "Die Methode dragonCurve gibt für n == 1 das korrekte Ergebnis zurück.",
@@ -225,7 +225,7 @@ public class H06_RubricProvider implements RubricProvider {
         .addChildCriteria(
             criterion(
                 "Die Methode kochSnowflake gibt für n <= 0 das korrekte Ergebnis zurück.",
-                JUnitTestRef.ofMethod(() -> FractalsTest.class.getDeclaredMethod("testKochSnowflakeZero"))
+                JUnitTestRef.ofMethod(() -> FractalsTest.class.getDeclaredMethod("testKochSnowflakeNonPositive", int.class))
             ),
             criterion(
                 "Die Methode kochSnowflake gibt für n == 1 das korrekte Ergebnis zurück.",
