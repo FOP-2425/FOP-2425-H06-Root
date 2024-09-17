@@ -36,7 +36,7 @@ public abstract class TestUtils {
      *
      * @param generator The generator to use.
      * @param amount    The amount of test data to generate.
-     * @param fileName  The file name to save the test data to.
+     * @param fileName  The file name to save the test data to (without extension).
      * @throws IOException If an I/O error occurs.
      */
     public static void generateJsonTestData(final JsonGenerator generator, final int amount, final String fileName) throws IOException {
@@ -54,7 +54,7 @@ public abstract class TestUtils {
             "graderPrivate",
             "resources",
             "h06",
-            fileName
+            fileName + ".generated.json"
         ).toAbsolutePath();
         System.out.printf("Saving to file: %s%n", path);
         final var file = path.toFile();

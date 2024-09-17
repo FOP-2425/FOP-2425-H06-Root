@@ -17,7 +17,12 @@ import java.util.Iterator;
 import java.util.List;
 
 import static h06.TestUtils.getCtMethod;
-import static org.tudalgo.algoutils.tutor.general.assertions.Assertions2.*;
+import static org.tudalgo.algoutils.tutor.general.assertions.Assertions2.assertEquals;
+import static org.tudalgo.algoutils.tutor.general.assertions.Assertions2.assertFalse;
+import static org.tudalgo.algoutils.tutor.general.assertions.Assertions2.assertNotSame;
+import static org.tudalgo.algoutils.tutor.general.assertions.Assertions2.callObject;
+import static org.tudalgo.algoutils.tutor.general.assertions.Assertions2.contextBuilder;
+import static org.tudalgo.algoutils.tutor.general.assertions.Assertions2.emptyContext;
 import static org.tudalgo.algoutils.tutor.general.assertions.Assertions4.assertIsNotIteratively;
 import static org.tudalgo.algoutils.tutor.general.assertions.Assertions4.assertIsNotRecursively;
 
@@ -90,7 +95,7 @@ public class FractalsTest {
     }
 
     @ParameterizedTest
-    @JsonParameterSetTest("FractalsConcatDataSetBoth.json")
+    @JsonParameterSetTest("FractalsConcatDataSetBoth.generated.json")
     public void testConcatenateLength(JsonParameterSet params) {
         DrawInstruction[] arrResult = concatenateSetup(params);
         assertEquals(arr1.length + arr2.length, arrResult.length, concatContext, result ->
@@ -98,7 +103,7 @@ public class FractalsTest {
     }
 
     @ParameterizedTest
-    @JsonParameterSetTest("FractalsConcatDataSetFirst.json")
+    @JsonParameterSetTest("FractalsConcatDataSetFirst.generated.json")
     public void testConcatenateFirstOnly(JsonParameterSet params) {
         DrawInstruction[] arrResult = concatenateSetup(params);
 
@@ -112,7 +117,7 @@ public class FractalsTest {
     }
 
     @ParameterizedTest
-    @JsonParameterSetTest("FractalsConcatDataSetSecond.json")
+    @JsonParameterSetTest("FractalsConcatDataSetSecond.generated.json")
     public void testConcatenateSecondOnly(JsonParameterSet params) {
         DrawInstruction[] arrResult = concatenateSetup(params);
 
@@ -126,7 +131,7 @@ public class FractalsTest {
     }
 
     @ParameterizedTest
-    @JsonParameterSetTest("FractalsConcatDataSetBoth.json")
+    @JsonParameterSetTest("FractalsConcatDataSetBoth.generated.json")
     public void testConcatenateBoth(JsonParameterSet params) {
         DrawInstruction[] arrResult = concatenateSetup(params);
 
@@ -160,7 +165,7 @@ public class FractalsTest {
     }
 
     @ParameterizedTest
-    @JsonParameterSetTest("FractalsReplaceAtIndexDataSet.json")
+    @JsonParameterSetTest("FractalsReplaceAtIndexDataSet.generated.json")
     public void testReplaceAtIndexLength(JsonParameterSet params) {
         DrawInstruction[] arrResult = replaceAtIndexSetup(params);
         assertEquals(arr.length, arrResult.length, replaceAtIndexContext, result ->
@@ -168,7 +173,7 @@ public class FractalsTest {
     }
 
     @ParameterizedTest
-    @JsonParameterSetTest("FractalsReplaceAtIndexDataSet.json")
+    @JsonParameterSetTest("FractalsReplaceAtIndexDataSet.generated.json")
     public void testReplaceAtIndexSameElements(JsonParameterSet params) {
         DrawInstruction[] arrResult = replaceAtIndexSetup(params);
         for (int i = 0; i < originalArr.length; i++) {
@@ -183,7 +188,7 @@ public class FractalsTest {
     }
 
     @ParameterizedTest
-    @JsonParameterSetTest("FractalsReplaceAtIndexDataSet.json")
+    @JsonParameterSetTest("FractalsReplaceAtIndexDataSet.generated.json")
     public void testReplaceAtIndexReplacedElement(JsonParameterSet params) {
         DrawInstruction[] arrResult = replaceAtIndexSetup(params);
         if (originalArr.length == 0) {
@@ -194,7 +199,7 @@ public class FractalsTest {
     }
 
     @ParameterizedTest
-    @JsonParameterSetTest("FractalsReplaceAtIndexDataSet.json")
+    @JsonParameterSetTest("FractalsReplaceAtIndexDataSet.generated.json")
     public void testReplaceAtIndexNewArray(JsonParameterSet params) {
         DrawInstruction[] arrResult = replaceAtIndexSetup(params);
         assertNotSame(arr, arrResult, replaceAtIndexContext, result ->
@@ -223,7 +228,7 @@ public class FractalsTest {
     }
 
     @ParameterizedTest
-    @JsonParameterSetTest("FractalsDragonCurveDataSet.json")
+    @JsonParameterSetTest("FractalsDragonCurveDataSet.generated.json")
     public void testDragonCurveN(JsonParameterSet params) {
         int n = params.getInt("n");
         DrawInstruction[] expected = toDrawInstructions(params.get("expected"));
@@ -284,7 +289,7 @@ public class FractalsTest {
     }
 
     @ParameterizedTest
-    @JsonParameterSetTest("FractalsKochSnowflakeDataSet.json")
+    @JsonParameterSetTest("FractalsKochSnowflakeDataSet.generated.json")
     public void testKochSnowflakeN(JsonParameterSet params) {
         int n = params.getInt("n");
         DrawInstruction[] expected = toDrawInstructions(params.get("expected"));

@@ -17,7 +17,11 @@ import java.util.List;
 import java.util.Map;
 
 import static h06.TestUtils.getCtMethod;
-import static org.tudalgo.algoutils.tutor.general.assertions.Assertions2.*;
+import static org.tudalgo.algoutils.tutor.general.assertions.Assertions2.assertEquals;
+import static org.tudalgo.algoutils.tutor.general.assertions.Assertions2.assertSame;
+import static org.tudalgo.algoutils.tutor.general.assertions.Assertions2.call;
+import static org.tudalgo.algoutils.tutor.general.assertions.Assertions2.callObject;
+import static org.tudalgo.algoutils.tutor.general.assertions.Assertions2.emptyContext;
 import static org.tudalgo.algoutils.tutor.general.assertions.Assertions4.assertIsNotIteratively;
 import static org.tudalgo.algoutils.tutor.general.assertions.Assertions4.assertIsNotRecursively;
 
@@ -41,7 +45,7 @@ public class LinearSearchTest {
     }
 
     @ParameterizedTest
-    @JsonParameterSetTest("LinearSearchDataSet.json")
+    @JsonParameterSetTest("LinearSearchDataSet.generated.json")
     public void testLinearSearchRecursive(JsonParameterSet params) {
         setup(params);
         int actual = callObject(() -> LinearSearch.linearSearchRecursive(arr, target), baseContext, result ->
@@ -50,7 +54,7 @@ public class LinearSearchTest {
     }
 
     @ParameterizedTest
-    @JsonParameterSetTest("LinearSearchDataSet.json")
+    @JsonParameterSetTest("LinearSearchDataSet.generated.json")
     public void testLinearSearchRecursiveHelperCall(JsonParameterSet params) throws ReflectiveOperationException {
         setup(params);
         Method linearSearchRecursiveHelperMethod = LinearSearch.class.getDeclaredMethod("linearSearchRecursiveHelper", int[].class, int.class, int.class);
@@ -85,7 +89,7 @@ public class LinearSearchTest {
     }
 
     @ParameterizedTest
-    @JsonParameterSetTest("LinearSearchDataSet.json")
+    @JsonParameterSetTest("LinearSearchDataSet.generated.json")
     public void testLinearSearchRecursiveHelper(JsonParameterSet params) {
         setup(params);
         int actual = callObject(() -> LinearSearch.linearSearchRecursiveHelper(arr, target, 0), baseContext, result ->
@@ -94,7 +98,7 @@ public class LinearSearchTest {
     }
 
     @ParameterizedTest
-    @JsonParameterSetTest("LinearSearchDataSet.json")
+    @JsonParameterSetTest("LinearSearchDataSet.generated.json")
     public void testLinearSearchRecursiveHelperTargetNotInArray(JsonParameterSet params) {
         if (params.getInt("expectedIndex") != -1) {
             System.out.println("Test ignored. Value target exists in arr");
@@ -115,7 +119,7 @@ public class LinearSearchTest {
     }
 
     @ParameterizedTest
-    @JsonParameterSetTest("LinearSearchDataSet.json")
+    @JsonParameterSetTest("LinearSearchDataSet.generated.json")
     public void testLinearSearchIterative(JsonParameterSet params) {
         setup(params);
         int actual = callObject(() -> LinearSearch.linearSearchIterative(arr, target), baseContext, result ->
@@ -124,7 +128,7 @@ public class LinearSearchTest {
     }
 
     @ParameterizedTest
-    @JsonParameterSetTest("LinearSearchDataSet.json")
+    @JsonParameterSetTest("LinearSearchDataSet.generated.json")
     public void testLinearSearchIterativeTargetNotInArray(JsonParameterSet params) {
         if (params.getInt("expectedIndex") != -1) {
             System.out.println("Test ignored. Value target exists in arr");

@@ -52,7 +52,7 @@ public class TestJsonGenerators {
                 return objectNode;
             },
             TEST_ITERATIONS,
-            "LinearSearchDataSet.json"
+            "LinearSearchDataSet"
         );
     }
 
@@ -86,7 +86,7 @@ public class TestJsonGenerators {
                 return objectNode;
             },
             TEST_ITERATIONS,
-            "FractalsConcatDataSet" + concatType + ".json"
+            "FractalsConcatDataSet" + concatType
         );
     }
 
@@ -113,7 +113,7 @@ public class TestJsonGenerators {
                 return objectNode;
             },
             TEST_ITERATIONS,
-            "FractalsReplaceAtIndexDataSet.json"
+            "FractalsReplaceAtIndexDataSet"
         );
     }
 
@@ -138,7 +138,7 @@ public class TestJsonGenerators {
                 return objectNode;
             },
             8,
-            "FractalsDragonCurveDataSet.json"
+            "FractalsDragonCurveDataSet"
         );
     }
 
@@ -163,7 +163,7 @@ public class TestJsonGenerators {
                 return objectNode;
             },
             5,
-            "FractalsKochSnowflakeDataSet.json"
+            "FractalsKochSnowflakeDataSet"
         );
     }
 }
