@@ -162,7 +162,7 @@ public class TestJsonGenerators {
                 objectNode.set("expected", arrayNode);
                 return objectNode;
             },
-            5,
+            4,
             "FractalsKochSnowflakeDataSet"
         );
     }
