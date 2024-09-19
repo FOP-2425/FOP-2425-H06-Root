@@ -1,6 +1,9 @@
 package h06;
 
-import org.sourcegrade.jagr.api.rubric.*;
+import org.sourcegrade.jagr.api.rubric.Criterion;
+import org.sourcegrade.jagr.api.rubric.JUnitTestRef;
+import org.sourcegrade.jagr.api.rubric.Rubric;
+import org.sourcegrade.jagr.api.rubric.RubricProvider;
 import org.tudalgo.algoutils.tutor.general.json.JsonParameterSet;
 
 import static org.tudalgo.algoutils.tutor.general.jagr.RubricUtils.criterion;
@@ -246,7 +249,10 @@ public class H06_RubricProvider implements RubricProvider {
         .addChildCriteria(
             criterion(
                 "Ein Objekt vom Typ FractalVisualizer wird erstellt und bekommt die korrekten Parameter übergeben.",
-                JUnitTestRef.ofMethod(() -> MainTest.class.getDeclaredMethod("testMain"))
+                JUnitTestRef.or(
+                    JUnitTestRef.ofMethod(() -> MainTest.class.getDeclaredMethod("testMainDragonCurve")),
+                    JUnitTestRef.ofMethod(() -> MainTest.class.getDeclaredMethod("testMainKochSnowflake"))
+                )
             )
         )
         .build();
