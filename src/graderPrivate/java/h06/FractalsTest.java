@@ -3,9 +3,11 @@ package h06;
 import h06.problems.Fractals;
 import h06.ui.DrawInstruction;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Timeout;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 import org.sourcegrade.jagr.api.rubric.TestForSubmission;
+import org.tudalgo.algoutils.tutor.general.annotation.SkipAfterFirstFailedTest;
 import org.tudalgo.algoutils.tutor.general.assertions.Context;
 import org.tudalgo.algoutils.tutor.general.json.JsonParameterSet;
 import org.tudalgo.algoutils.tutor.general.json.JsonParameterSetTest;
@@ -15,6 +17,7 @@ import spoon.reflect.declaration.CtMethod;
 
 import java.util.Iterator;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import static h06.TestUtils.getCtMethod;
 import static org.tudalgo.algoutils.tutor.general.assertions.Assertions2.assertEquals;
@@ -27,6 +30,12 @@ import static org.tudalgo.algoutils.tutor.general.assertions.Assertions4.assertI
 import static org.tudalgo.algoutils.tutor.general.assertions.Assertions4.assertIsNotRecursively;
 
 @TestForSubmission
+@Timeout(
+    value = TestConstants.TEST_TIMEOUT_IN_SECONDS,
+    unit = TimeUnit.SECONDS,
+    threadMode = Timeout.ThreadMode.SEPARATE_THREAD
+)
+@SkipAfterFirstFailedTest(TestConstants.SKIP_AFTER_FIRST_FAILED_TEST)
 public class FractalsTest {
 
     private Context concatContext;  // say it three times
