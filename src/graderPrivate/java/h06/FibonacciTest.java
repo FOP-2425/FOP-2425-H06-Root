@@ -3,12 +3,14 @@ package h06;
 import h06.problems.Fibonacci;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Timeout;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 import org.mockito.MockedStatic;
 import org.mockito.Mockito;
 import org.mockito.stubbing.Answer;
 import org.sourcegrade.jagr.api.rubric.TestForSubmission;
+import org.tudalgo.algoutils.tutor.general.annotation.SkipAfterFirstFailedTest;
 import org.tudalgo.algoutils.tutor.general.assertions.Context;
 import spoon.reflect.code.CtIf;
 import spoon.reflect.code.CtInvocation;
@@ -21,6 +23,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 import static h06.TestUtils.getCtMethod;
 import static org.tudalgo.algoutils.tutor.general.assertions.Assertions2.assertEquals;
@@ -33,6 +36,12 @@ import static org.tudalgo.algoutils.tutor.general.assertions.Assertions2.fail;
 import static org.tudalgo.algoutils.tutor.general.assertions.Assertions4.assertIsNotRecursively;
 
 @TestForSubmission
+@Timeout(
+    value = TestConstants.TEST_TIMEOUT_IN_SECONDS,
+    unit = TimeUnit.SECONDS,
+    threadMode = Timeout.ThreadMode.SEPARATE_THREAD
+)
+@SkipAfterFirstFailedTest(TestConstants.SKIP_AFTER_FIRST_FAILED_TEST)
 public class FibonacciTest {
 
     private static Method doTheRecursionMethod;
