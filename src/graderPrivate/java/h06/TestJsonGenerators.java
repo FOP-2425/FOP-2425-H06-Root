@@ -96,12 +96,12 @@ public class TestJsonGenerators {
 
         TestUtils.generateJsonTestData(
             (mapper, index, rnd) -> {
-                int arrLength = rnd.nextInt(10);
+                int arrLength = rnd.nextInt(1, 10);
                 List<String> arr = new ArrayList<>();
                 for (int i = 0; i < arrLength; i++) {
                     arr.add(drawInstructions[rnd.nextInt(drawInstructions.length)].name());
                 }
-                int idx = arr.isEmpty() ? -1 : rnd.nextInt(arr.size());
+                int idx = rnd.nextInt(arr.size());
                 String elem = drawInstructions[rnd.nextInt(drawInstructions.length)].name();
 
                 ArrayNode arrArrayNode = mapper.createArrayNode();
